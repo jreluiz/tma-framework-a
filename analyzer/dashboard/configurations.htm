@@ -1,4 +1,4 @@
-<html ng-app="AngularChartExample">
+<html>
 <head>
     <title>Atmosphere TEP Dashboard</title>
     
@@ -41,7 +41,6 @@
 	table.greyGridTable thead th:first-child {
   	border-left: none;
 	}
-
 	table.greyGridTable tfoot {
   	font-size: 14px;
   	font-weight: bold;
@@ -60,7 +59,7 @@
 <p>
 	<b> Configuration Form </b>
 
-	<div name="configForm" ng-controller="ConfigController">
+	<div  ng-app="ConfigApp" ng-controller="ConfigController">
 	<form>
 		<table class="greyGridTable">
 			<tr>
@@ -77,12 +76,12 @@
 
 			<tr>
 				<td style="text-align:left">
-    				<input type="checkbox" ng-model="checkboxModel.value1">
-    				<label>Privacy</label>
-    				<input style="width=5px">%<br/>
+    				<input type="checkbox" ng-model="selectedMetric1">
+    				<label ng-model="metricName1">Privacy</label>
+    				<input ng-model="metricRelevance1">%<br/>
 				</td>
 				<td>
-					<select>
+					<select ng-model="metricThreshold1">
     					<option value="0.0">0.00</option>
     					<option value="0.25">0.25</option>
     					<option value="0.0">0.50</option>
@@ -91,18 +90,18 @@
 					</select>
 				</td>
 				<td>
-   					<input>
+   					<input ng-model="metricPeriodicity1">
 				</td>
 			</tr>
   
 			<tr>
 				<td style="text-align:left">
-    				<input type="checkbox" ng-model="checkboxModel.value2">
-    				<label>Security</label>
-    				<input>%<br/>
+    				<input type="checkbox" ng-model="selectedMetric2">
+    				<label ng-model="metricName2">Security</label>
+    				<input ng-model="metricRelevance2">%<br/>
 				</td>
 				<td>
-					<select>
+					<select ng-model="metricThreshold2">
     					<option value="0.0">0.00</option>
     					<option value="0.25">0.25</option>
     					<option value="0.0">0.50</option>
@@ -111,18 +110,18 @@
 					</select>
 				</td>
 				<td>
-					<input>
+					<input ng-model="metricPeriodicity2">
 				</td>
 			</tr>  
   
 			<tr>
 				<td style="text-align:left">
-    				<input type="checkbox" ng-model="checkboxModel.value3">
-    				<label>Fairness</label>
-    				<input>%<br/>
+    				<input type="checkbox" ng-model="selectedMetric3">
+    				<label ng-model="metricName3">Fairness</label>
+    				<input ng-model="metricRelevance3">%<br/>
 				</td>
 				<td>
-					<select>
+					<select ng-model="metricThreshold3">
     					<option value="0.0">0.00</option>
     					<option value="0.25">0.25</option>
     					<option value="0.0">0.50</option>
@@ -131,18 +130,18 @@
 					</select>
 				</td>
 				<td>
-					<input>
+					<input ng-model="metricPeriodicity3">
 				</td>
 			</tr>  
 
 			<tr>
 				<td style="text-align:left">
-    				<input type="checkbox" ng-model="checkboxModel.value4">
-    				<label>Transparency</label>
-    				<input width="48">%<br/>
+    				<input type="checkbox" ng-model="selectedMetric4">
+    				<label ng-model="metricName4">Transparency</label>
+    				<input ng-model="metricRelevance4">%<br/>
 				</td>
 				<td>
-					<select>
+					<select ng-model="metricThreshold4">
     					<option value="0.0">0.00</option>
     					<option value="0.25">0.25</option>
     					<option value="0.0">0.50</option>
@@ -151,29 +150,73 @@
 					</select>
 				</td>
 				<td>
-					<input>
+					<input ng-model="metricPeriodicity4">
 				</td>
 			</tr>
 		</table>
 
 
-		Employee No. <input type="text" ng-model="empno"/><br/>
-		First Name <input type="text" ng-model="fname"/><br/>
+		Value Test 1 <input type="text" ng-model="vtest1"/><br/>
+		Value Test 2 <input type="text" ng-model="vtest2"/><br/>
 
 
 		<input type="button" value="submit" ng-click="insertdata()" />
 	</form>
 	
 	<script>
-		var app = angular.module('configApp',[]);
-		app.controller('configController', function($scope, $http) {
+		var app = angular.module('ConfigApp',[]);
+		app.controller('ConfigController', function($scope, $http) {
 			$scope.insertdata = function() {
-			$http.post("insert.php", {'empno':$scope.empno, 'fname':$scope.fname})
+			$http.post("insert.php", 
+				{
+				'propRelevance':[{
+					'name': $scope.metricName1,
+					'data': $scope.metricRelevance1
+					}, {
+					'name': $scope.metricName2,
+					'data': $scope.metricRelevance2
+					}, {
+					'name': $scope.metricName3,
+					'data': $scope.metricRelevance3
+					}, {
+					'name': $scope.metricName4,
+					'data': $scope.metricRelevance4
+					}]
+
+				'thresholds':[{
+					'name': $scope.metricName1,
+					'data': $scope.metricThreshold1
+					}, {
+					'name': $scope.metricName2,
+					'data': $scope.metricThreshold2
+					}, {
+					'name': $scope.metricName3,
+					'data': $scope.metricThreshold3
+					}, {
+					'name': $scope.metricName4,
+					'data': $scope.metricThreshold4
+					}]
+
+				'periodicity':[{
+					'name': $scope.metricName1,
+					'data': $scope.metricPeriodicity1
+					}, {
+					'name': $scope.metricName2,
+					'data': $scope.metricPeriodicity2
+					}, {
+					'name': $scope.metricName3,
+					'data': $scope.metricPeriodicity3
+					}, {
+					'name': $scope.metricName4,
+					'data': $scope.metricPeriodicity4
+					}]
+				}		
+				)
 			.success(function(data, status, headers, config) {
 				console.log("data inserted successfully");
-				));
+				});
 			}
-		));
+		});
 
 	</script>
 
