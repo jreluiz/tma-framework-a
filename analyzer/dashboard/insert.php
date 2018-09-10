@@ -1,6 +1,6 @@
 <?php
   // recover json file
-  $data = json_decode(file_get_contents("php://input"));
+  $data = json_decode(file_get_contents("php://input"), false);
 
   // connect to database
   DEFINE('DB_USERNAME', 'root');
@@ -17,7 +17,7 @@
 
  
   // execute query to insert values into table
-  if ($result = $mysqli->query("INSERT INTO properties(vtest1, vtest2) VALUES ('".$data->vtest1."','".$data->vtest2."')")) {
+  if ($result = $mysqli->query("INSERT INTO properties(name, relevance, threshold, periodicity) VALUES ('".$data->propRelevance[0]->name."', '".$data->propRelevance[0]->data."','".$data->thresholds[0]->data."', '".$data->periodicity[0]->data."')")) {
      $result->close();
   }
 
