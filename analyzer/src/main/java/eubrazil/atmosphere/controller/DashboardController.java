@@ -2,7 +2,6 @@ package eubrazil.atmosphere.controller;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import eubrazil.atmosphere.qualitymodel.Attribute;
-import eubrazil.atmosphere.repository.AttributeRepository;
-import eubrazil.atmosphere.service.impl.AttributeService;
-import eubrazil.atmosphere.qualitymodel.Preference;
-import eubrazil.atmosphere.repository.PreferenceRepository;
-import eubrazil.atmosphere.service.impl.PreferenceService;
+import eubr.atmosphere.tma.qualitymodel.entity.Attribute;
+import eubr.atmosphere.tma.qualitymodel.entity.Preference;
 import eubrazil.atmosphere.config.appconfig.PropertiesManager;
+import eubrazil.atmosphere.service.impl.AttributeService;
+import eubrazil.atmosphere.service.impl.PreferenceService;
 
 /**
  * Dashboard Controller

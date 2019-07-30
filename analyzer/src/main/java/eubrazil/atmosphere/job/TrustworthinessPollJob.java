@@ -18,16 +18,16 @@ import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
 
+import eubr.atmosphere.tma.data.Plan;
+import eubr.atmosphere.tma.exceptions.UndefinedException;
+import eubr.atmosphere.tma.qualitymodel.entity.CompositeAttribute;
+import eubr.atmosphere.tma.qualitymodel.entity.ConfigurationProfile;
+import eubr.atmosphere.tma.qualitymodel.entity.HistoricalData;
+import eubr.atmosphere.tma.qualitymodel.entity.Preference;
+import eubr.atmosphere.tma.utils.ListUtils;
 import eubr.atmosphere.tma.utils.PrivacyScore;
-import eubrazil.atmosphere.commons.utils.ListUtils;
 import eubrazil.atmosphere.config.quartz.SchedulerConfig;
-import eubrazil.atmosphere.entity.Plan;
-import eubrazil.atmosphere.exceptions.UndefinedException;
 import eubrazil.atmosphere.kafka.KafkaManager;
-import eubrazil.atmosphere.qualitymodel.CompositeAttribute;
-import eubrazil.atmosphere.qualitymodel.ConfigurationProfile;
-import eubrazil.atmosphere.qualitymodel.HistoricalData;
-import eubrazil.atmosphere.qualitymodel.Preference;
 import eubrazil.atmosphere.qualitymodel.SpringContextBridge;
 import eubrazil.atmosphere.service.TrustworthinessService;
 

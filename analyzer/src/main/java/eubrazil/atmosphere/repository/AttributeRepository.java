@@ -1,11 +1,9 @@
 package eubrazil.atmosphere.repository;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import eubrazil.atmosphere.qualitymodel.Attribute;
+import eubr.atmosphere.tma.qualitymodel.entity.Attribute;
 
 /**
  * Dashboard services

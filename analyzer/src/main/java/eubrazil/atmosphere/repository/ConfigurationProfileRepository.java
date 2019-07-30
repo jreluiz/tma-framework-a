@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import eubrazil.atmosphere.qualitymodel.ConfigurationProfile;
+import eubr.atmosphere.tma.qualitymodel.entity.ConfigurationProfile;
 
 @Repository
 public interface ConfigurationProfileRepository extends CrudRepository<ConfigurationProfile, Long> {
