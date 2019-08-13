@@ -7,11 +7,11 @@ import java.util.Set;
 
 import org.springframework.data.domain.Pageable;
 
-import eubr.atmosphere.tma.data.Plan;
 import eubr.atmosphere.tma.qualitymodel.entity.ConfigurationProfile;
 import eubr.atmosphere.tma.qualitymodel.entity.Data;
 import eubr.atmosphere.tma.qualitymodel.entity.HistoricalData;
 import eubr.atmosphere.tma.qualitymodel.entity.Metric;
+import eubr.atmosphere.tma.qualitymodel.entity.Plan;
 
 /**
  * Trustworthiness services

@@ -14,7 +14,7 @@ public interface ConfigurationProfileRepository extends CrudRepository<Configura
 	@Override
 	List<ConfigurationProfile> findAll();
 
-	@Query(value="select cp from configurationprofile cp join fetch cp.metrics join fetch "
+	@Query(value="select cp from ConfigurationProfile cp join fetch cp.metrics join fetch "
 			+ "cp.preferences where cp.configurationprofileId = ?1")
     List<ConfigurationProfile> findConfigurationProfileInstance(Integer configurationProfileID);
 	

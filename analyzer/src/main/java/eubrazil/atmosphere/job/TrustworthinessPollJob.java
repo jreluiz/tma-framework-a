@@ -18,11 +18,11 @@ import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
 
-import eubr.atmosphere.tma.data.Plan;
 import eubr.atmosphere.tma.exceptions.UndefinedException;
 import eubr.atmosphere.tma.qualitymodel.entity.CompositeAttribute;
 import eubr.atmosphere.tma.qualitymodel.entity.ConfigurationProfile;
 import eubr.atmosphere.tma.qualitymodel.entity.HistoricalData;
+import eubr.atmosphere.tma.qualitymodel.entity.Plan;
 import eubr.atmosphere.tma.qualitymodel.entity.Preference;
 import eubr.atmosphere.tma.utils.ListUtils;
 import eubr.atmosphere.tma.utils.PrivacyScore;

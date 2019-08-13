@@ -11,11 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import eubr.atmosphere.tma.data.Plan;
 import eubr.atmosphere.tma.qualitymodel.entity.ConfigurationProfile;
 import eubr.atmosphere.tma.qualitymodel.entity.Data;
 import eubr.atmosphere.tma.qualitymodel.entity.HistoricalData;
 import eubr.atmosphere.tma.qualitymodel.entity.Metric;
+import eubr.atmosphere.tma.qualitymodel.entity.Plan;
 import eubr.atmosphere.tma.utils.ListUtils;
 import eubrazil.atmosphere.config.appconfig.PropertiesManager;
 import eubrazil.atmosphere.repository.ConfigurationProfileRepository;
@@ -109,7 +109,7 @@ public class TrustworthinessServiceImpl implements TrustworthinessService {
 	
 	@Override
 	public Plan getPlanIdByMetricAndConfigurationProfile(Integer metricId, Integer configurationProfileID) {
-		return planRepository.getPlanIdByMetricAndConfigurationProfile(metricId, configurationProfileID);
+		return planRepository.getPlanIdByMetricAndConfigurationProfile(configurationProfileID);
 	}
 
 }
