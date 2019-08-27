@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import eubr.atmosphere.tma.qualitymodel.entity.Attribute;
-import eubr.atmosphere.tma.qualitymodel.entity.Preference;
+import eubr.atmosphere.tma.entity.qualitymodel.Attribute;
+import eubr.atmosphere.tma.entity.qualitymodel.Preference;
 import eubrazil.atmosphere.config.appconfig.PropertiesManager;
 import eubrazil.atmosphere.service.impl.AttributeService;
 import eubrazil.atmosphere.service.impl.PreferenceService;

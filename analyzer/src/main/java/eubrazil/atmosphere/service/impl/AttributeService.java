@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import eubr.atmosphere.tma.qualitymodel.entity.Attribute;
+import eubr.atmosphere.tma.entity.qualitymodel.Attribute;
 import eubrazil.atmosphere.repository.AttributeRepository;
 
 /**

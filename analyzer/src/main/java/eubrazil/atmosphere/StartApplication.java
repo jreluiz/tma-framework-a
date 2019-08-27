@@ -15,7 +15,7 @@ import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 @EnableSpringConfigured
 @ComponentScan
 @SpringBootApplication
-@EntityScan( basePackages = {"eubr.atmosphere.tma.qualitymodel.entity"} )
+@EntityScan( basePackages = {"eubr.atmosphere.tma.entity"} )
 public class StartApplication {
     public static void main(String[] args) throws Exception {
     	SpringApplication.run(StartApplication.class, args);

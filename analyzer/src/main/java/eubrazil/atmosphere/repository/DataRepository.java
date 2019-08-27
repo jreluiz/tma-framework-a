@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import eubr.atmosphere.tma.qualitymodel.entity.Data;
+import eubr.atmosphere.tma.entity.qualitymodel.Data;
 
 @Repository
 public interface DataRepository extends CrudRepository<Data, Long> {

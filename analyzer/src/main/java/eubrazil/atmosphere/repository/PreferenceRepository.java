@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import eubr.atmosphere.tma.qualitymodel.entity.Preference;
+import eubr.atmosphere.tma.entity.qualitymodel.Preference;
 
 /**
  * Dashboard services

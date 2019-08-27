@@ -18,12 +18,12 @@ import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
 
+import eubr.atmosphere.tma.entity.plan.Plan;
+import eubr.atmosphere.tma.entity.qualitymodel.CompositeAttribute;
+import eubr.atmosphere.tma.entity.qualitymodel.ConfigurationProfile;
+import eubr.atmosphere.tma.entity.qualitymodel.HistoricalData;
+import eubr.atmosphere.tma.entity.qualitymodel.Preference;
 import eubr.atmosphere.tma.exceptions.UndefinedException;
-import eubr.atmosphere.tma.qualitymodel.entity.CompositeAttribute;
-import eubr.atmosphere.tma.qualitymodel.entity.ConfigurationProfile;
-import eubr.atmosphere.tma.qualitymodel.entity.HistoricalData;
-import eubr.atmosphere.tma.qualitymodel.entity.Plan;
-import eubr.atmosphere.tma.qualitymodel.entity.Preference;
 import eubr.atmosphere.tma.utils.ListUtils;
 import eubr.atmosphere.tma.utils.PrivacyScore;
 import eubrazil.atmosphere.config.quartz.SchedulerConfig;
@@ -87,8 +87,7 @@ public class TrustworthinessPollJob implements Job {
 			
 			try {
 				
-				Plan plan = trustworthinessService.getPlanIdByMetricAndConfigurationProfile(privacy.getAttributeId(),
-						configurationActor.getConfigurationprofileId());
+				Plan plan = trustworthinessService.getPlanIdByMetricAndConfigurationProfile(privacy.getAttributeId());
 				
 				PrivacyScore privacyScore = new PrivacyScore(configurationActor.getConfigurationprofileId(),
 						privacy.getAttributeId(), trustworthinessService.getInstanceValueById(),
