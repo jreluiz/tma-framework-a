@@ -2,7 +2,6 @@ package eubrazil.atmosphere.job;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
@@ -18,16 +17,13 @@ import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Component;
 
-import eubr.atmosphere.tma.entity.plan.Plan;
 import eubr.atmosphere.tma.entity.qualitymodel.CompositeAttribute;
 import eubr.atmosphere.tma.entity.qualitymodel.ConfigurationProfile;
 import eubr.atmosphere.tma.entity.qualitymodel.HistoricalData;
-import eubr.atmosphere.tma.entity.qualitymodel.Preference;
 import eubr.atmosphere.tma.exceptions.UndefinedException;
 import eubr.atmosphere.tma.utils.ListUtils;
-import eubr.atmosphere.tma.utils.PrivacyScore;
+import eubr.atmosphere.tma.utils.TreeUtils;
 import eubrazil.atmosphere.config.quartz.SchedulerConfig;
-import eubrazil.atmosphere.kafka.KafkaManager;
 import eubrazil.atmosphere.qualitymodel.SpringContextBridge;
 import eubrazil.atmosphere.service.TrustworthinessService;
 
@@ -78,44 +74,36 @@ public class TrustworthinessPollJob implements Job {
 			LOGGER.info("update lastTimestampRead: " + lastTimestampRead);
 		}
 		
-		CompositeAttribute privacy = getRootAttribute(configurationActor);
+		CompositeAttribute privacy = TreeUtils.getInstance().getRootAttribute(configurationActor);
 
 		try {
 			HistoricalData historicalData = null;
 			historicalData = privacy.calculate(configurationActor, lastTimestampDataInserted);
 			LOGGER.info(new Date() + " - Calculated score for trustworthiness: " + historicalData.getValue());
 			
-			try {
-				
-				Plan plan = trustworthinessService.getPlanIdByMetricAndConfigurationProfile(privacy.getAttributeId());
-				
-				PrivacyScore privacyScore = new PrivacyScore(configurationActor.getConfigurationprofileId(),
-						privacy.getAttributeId(), trustworthinessService.getInstanceValueById(),
-						historicalData.getValue(), lastTimestampDataInserted, (plan != null ? plan.getPlanId() : null));
-				
-				// Add calculated score to kafka topic
-				KafkaManager.getInstance().addItemKafka(privacyScore);
-				
-			} catch (InterruptedException e) {
-				LOGGER.error("InterruptedException when adding kafka item: ", e);
-			} catch (ExecutionException e) {
-				LOGGER.error("ExecutionException when adding kafka item: ", e);
-			}
+			// TODO: remover
+//			try {
+//				
+//				Plan plan = trustworthinessService.getPlanIdByMetricAndConfigurationProfile(privacy.getAttributeId());
+//				
+//				PrivacyScore privacyScore = new PrivacyScore(configurationActor.getConfigurationprofileId(),
+//						privacy.getAttributeId(), trustworthinessService.getInstanceValueById(),
+//						historicalData.getValue(), lastTimestampDataInserted);
+//				
+//				// Add calculated score to kafka topic
+//				KafkaManager.getInstance().addItemKafka(privacyScore);
+//				
+//			} catch (InterruptedException e) {
+//				LOGGER.error("InterruptedException when adding kafka item: ", e);
+//			} catch (ExecutionException e) {
+//				LOGGER.error("ExecutionException when adding kafka item: ", e);
+//			}
 			
 		} catch (UndefinedException e) {
 			LOGGER.error("Property not defined in the quality model ", e);
 		}
 
 		LOGGER.info("TrustworthinessPollJob - end of execution..");
-	}
-	
-	private CompositeAttribute getRootAttribute(ConfigurationProfile configurationActor) {
-		for (Preference preference : configurationActor.getPreferences()) {
-			if ( preference.getAttributeType().isRoot() ) {
-				return (CompositeAttribute) preference.getAttribute();
-			}
-		}
-		return null;
 	}
 	
 	@Bean(name = "jobBean1")
