@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import eubr.atmosphere.tma.entity.plan.Plan;
 import eubr.atmosphere.tma.entity.qualitymodel.ConfigurationProfile;
 import eubr.atmosphere.tma.entity.qualitymodel.Data;
 import eubr.atmosphere.tma.entity.qualitymodel.HistoricalData;
@@ -21,7 +20,6 @@ import eubrazil.atmosphere.config.appconfig.PropertiesManager;
 import eubrazil.atmosphere.repository.ConfigurationProfileRepository;
 import eubrazil.atmosphere.repository.DataRepository;
 import eubrazil.atmosphere.repository.HistoricalDataRepository;
-import eubrazil.atmosphere.repository.PlanRepository;
 import eubrazil.atmosphere.service.TrustworthinessService;
 
 /**
@@ -39,9 +37,6 @@ public class TrustworthinessServiceImpl implements TrustworthinessService {
 	
 	@Autowired
 	private ConfigurationProfileRepository configurationProfileRepository;
-	
-	@Autowired
-	private PlanRepository planRepository;
 	
 	@Override
 	public List<Data> getLimitedDataListById(Integer probeId, Integer descriptionId, Integer resourceId,
@@ -105,11 +100,6 @@ public class TrustworthinessServiceImpl implements TrustworthinessService {
 		}
 		
 		return instanceValue;
-	}
-	
-	@Override
-	public Plan getPlanIdByMetricAndConfigurationProfile(Integer attributeId) {
-		return planRepository.getPlanIdByMetricAndConfigurationProfile(attributeId);
 	}
 
 }
