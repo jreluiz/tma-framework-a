@@ -34,11 +34,11 @@ import eubrazil.atmosphere.service.TrustworthinessService;
 @Component
 @DisallowConcurrentExecution
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:config.properties")
-public class TrustworthinessPollJob implements Job {
+public class TrustworthinessAnalyzePollJob implements Job {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-	private static final Integer PRIVACY_CONFIGURATION_PROFILE_ID = 1;
+	private static final Integer TRUSTWORTHINESS_CONFIGURATION_PROFILE_ID = 1;
 	
 	@Value("${trigger.job.time}")
 	private String triggerJobTime;
@@ -50,9 +50,9 @@ public class TrustworthinessPollJob implements Job {
 		LOGGER.info("TrustworthinessPollJob - execution..");
 
 		TrustworthinessService trustworthinessService = SpringContextBridge.services().getTrustworthinessService();
-		List<ConfigurationProfile> configProfileList = trustworthinessService.findConfigurationProfileInstance(PRIVACY_CONFIGURATION_PROFILE_ID);
+		List<ConfigurationProfile> configProfileList = trustworthinessService.findConfigurationProfileInstance(TRUSTWORTHINESS_CONFIGURATION_PROFILE_ID);
 
-		if (ListUtils.isEmpty(configProfileList)) {
+		if ( ListUtils.isEmpty(configProfileList) ) {
 			LOGGER.error("Quality Model for privacy not defined in the database.");
 			return;
 		}
@@ -81,6 +81,10 @@ public class TrustworthinessPollJob implements Job {
 			historicalData = privacy.calculate(configurationActor, lastTimestampDataInserted);
 			LOGGER.info(new Date() + " - Calculated score for trustworthiness: " + historicalData.getValue());
 			
+//			PrivacyScore privacyScore = new PrivacyScore(configurationActor.getConfigurationprofileId(),
+//					privacy.getAttributeId(), trustworthinessService.getInstanceValueById(),
+//					historicalData.getValue(), lastTimestampDataInserted);
+
 			// TODO: remover
 //			try {
 //				

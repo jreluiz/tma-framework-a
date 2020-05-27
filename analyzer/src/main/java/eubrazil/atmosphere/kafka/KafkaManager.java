@@ -20,8 +20,7 @@ import eubrazil.atmosphere.config.appconfig.PropertiesManager;
 public class KafkaManager {
 
     private final static String TOPIC = "topic-planning";
-    private final static String BOOTSTRAP_SERVERS =
-            PropertiesManager.getInstance().getProperty("bootstrapServers");
+    private final static String BOOTSTRAP_SERVERS = PropertiesManager.getInstance().getProperty("bootstrapServers");
 
     private static final KafkaManager INSTANCE = new KafkaManager();
     
