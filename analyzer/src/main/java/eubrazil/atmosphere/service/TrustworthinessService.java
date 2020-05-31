@@ -30,5 +30,7 @@ public interface TrustworthinessService {
 	public Date getLastTimestampInsertedForMetrics(Set<Metric> metrics);
 	
 	public Double getInstanceValueById();
+
+	public boolean isNewDataInsertedForMetrics(Set<Metric> metrics);
 	
 }

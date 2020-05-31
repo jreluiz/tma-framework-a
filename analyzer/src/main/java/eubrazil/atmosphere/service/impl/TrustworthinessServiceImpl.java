@@ -14,12 +14,14 @@ import org.springframework.stereotype.Service;
 import eubr.atmosphere.tma.entity.qualitymodel.ConfigurationProfile;
 import eubr.atmosphere.tma.entity.qualitymodel.Data;
 import eubr.atmosphere.tma.entity.qualitymodel.HistoricalData;
+import eubr.atmosphere.tma.entity.qualitymodel.LeafAttribute;
 import eubr.atmosphere.tma.entity.qualitymodel.Metric;
 import eubr.atmosphere.tma.utils.ListUtils;
 import eubrazil.atmosphere.config.appconfig.PropertiesManager;
 import eubrazil.atmosphere.repository.ConfigurationProfileRepository;
 import eubrazil.atmosphere.repository.DataRepository;
 import eubrazil.atmosphere.repository.HistoricalDataRepository;
+import eubrazil.atmosphere.repository.MetricRepository;
 import eubrazil.atmosphere.service.TrustworthinessService;
 
 /**
@@ -37,6 +39,9 @@ public class TrustworthinessServiceImpl implements TrustworthinessService {
 	
 	@Autowired
 	private ConfigurationProfileRepository configurationProfileRepository;
+	
+	@Autowired
+	private MetricRepository metricRepository;
 	
 	@Override
 	public List<Data> getLimitedDataListById(Integer probeId, Integer descriptionId, Integer resourceId,
@@ -83,6 +88,43 @@ public class TrustworthinessServiceImpl implements TrustworthinessService {
 		}
 		
 		return lastTime;
+	}
+	
+	@Override
+	public boolean isNewDataInsertedForMetrics(Set<Metric> metrics) {
+
+		boolean newDataInserted = false; 
+		
+		for (Metric metric : metrics) {
+			
+			// get last data inserted for metric
+			LeafAttribute metricLeafAttr = metric.getAttribute();
+			List<Data> lData = dataRepository.getLimitedDataListById(metric.getProbeId(), metric.getDescriptionId(),
+					metric.getResourceId(), metricLeafAttr != null ? new PageRequest(0, metricLeafAttr.getNumSamples())
+							: new PageRequest(0, 1));
+			Data currentDataInsertedForMetric = Collections.max(lData, Comparator.comparing(d -> d.getId().getValueTime()));
+			
+			// get current timestamp inserted for metric (referent to current data)
+			Date currentTimestampInsertedForMetric = null;
+			if (currentDataInsertedForMetric != null && currentDataInsertedForMetric.getId().getValueTime() != null) {
+				currentTimestampInsertedForMetric = currentDataInsertedForMetric.getId().getValueTime();
+			} else {
+				continue;
+			}
+			
+			// update last timestamp inserted for metric
+			Date lastTimestampValueForMetric = metric.getLastTimestampDataInserted();
+			if ((lastTimestampValueForMetric == null && currentDataInsertedForMetric != null)
+					|| (lastTimestampValueForMetric != null
+							&& lastTimestampValueForMetric.before(currentTimestampInsertedForMetric))) {
+				metric.setLastTimestampDataInserted(currentTimestampInsertedForMetric);
+				metricRepository.save(metric);
+				newDataInserted = true;
+			}
+			
+		}
+		
+		return newDataInserted;
 	}
 	
 	@Override

@@ -14,7 +14,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import eubr.atmosphere.tma.utils.PrivacyScore;
+import eubr.atmosphere.tma.utils.MessagePlanning;
 import eubrazil.atmosphere.config.appconfig.PropertiesManager;
 
 public class KafkaManager {
@@ -32,9 +32,9 @@ public class KafkaManager {
 		return INSTANCE;
 	}
 
-    public void addItemKafka(PrivacyScore privacyScore) throws InterruptedException, ExecutionException {
+    public void addItemKafka(MessagePlanning messagePlanning) throws InterruptedException, ExecutionException {
         long time = System.currentTimeMillis();
-        JsonElement jsonElement = new Gson().toJsonTree(privacyScore);
+        JsonElement jsonElement = new Gson().toJsonTree(messagePlanning);
         final ProducerRecord<Long, String> record =
                 new ProducerRecord<>(TOPIC, time, jsonElement.toString());
         RecordMetadata metadata = this.producer.send(record).get();
