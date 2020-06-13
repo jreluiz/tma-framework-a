@@ -102,7 +102,10 @@ public class TrustworthinessServiceImpl implements TrustworthinessService {
 			List<Data> lData = dataRepository.getLimitedDataListById(metric.getProbeId(), metric.getDescriptionId(),
 					metric.getResourceId(), metricLeafAttr != null ? new PageRequest(0, metricLeafAttr.getNumSamples())
 							: new PageRequest(0, 1));
-			Data currentDataInsertedForMetric = Collections.max(lData, Comparator.comparing(d -> d.getId().getValueTime()));
+			Data currentDataInsertedForMetric = null;
+			if ( ListUtils.isNotEmpty(lData) ) {
+				currentDataInsertedForMetric = Collections.max(lData, Comparator.comparing(d -> d.getId().getValueTime()));
+			}
 			
 			// get current timestamp inserted for metric (referent to current data)
 			Date currentTimestampInsertedForMetric = null;
